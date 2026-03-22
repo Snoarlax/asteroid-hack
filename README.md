@@ -76,8 +76,8 @@ The shell script runner executes scripts from the `~/hack_scripts/` directory on
 - Scripts **must have a `.sh` extension** to be recognized
 - Scripts are executed using `/bin/sh` - they do **not** need to be marked as executable
 - Scripts run with user permissions (the `ceres` user by default)
-- To run commands as root, use the `runas` utility (see `examples/` and read the README for installation instructions for `runas`)
-- To use the Ducky module, use the `keyboard_interface` utility (see `examples/` and read the README for installation instructions for `keyboard_interface`)
+- To run commands as root, use `sudo`
+- To use the Ducky module, use the `keyboard_interface` binary (see `examples/` and read the README for installation instructions for `keyboard_interface`)
 
 #### Example Scripts
 
@@ -85,7 +85,7 @@ See the `examples/ceres/hack_scripts/` directory for reference scripts:
 
 | Script | Purpose |
 |--------|---------|
-| `whoami.sh` | Tests privileged execution via `runas` |
+| `whoami.sh` | Tests privileged execution via `sudo` |
 | `enable_wifi.sh` / `disable_wifi.sh` | Control WiFi via connmanctl |
 | `status_wifi.sh` | Display WiFi status |
 | `ip_info.sh` | Show network interface information |
@@ -108,13 +108,9 @@ The keyboard script runner executes keyboard scripts from `~/keyboard_scripts/` 
    scp examples/ceres/keyboard_scripts/* ceres@192.168.2.15:~/keyboard_scripts/
    ```
 
-3. Copy the utilities (compile for ARM architecture first):
+3. Ensure dependencies are installed:
    - `keyboard_interface` - Processes keyboard scripts and writes to HID device
-   - `runas` - Runs commands as root
-
-   ```bash
-   scp examples/ceres/utilities/* ceres@192.168.2.15:~/utilities/
-   ```
+   - `sudo` - Runs commands as root
 
 4. Open the **HackWatch** app and select **Keyboard** to run your scripts.
 
@@ -210,8 +206,6 @@ ceres/                      # User home directory on watch
 │   ├── linux_poc
 │   └── fulltest
 └── utilities/              # Helper utilities
-    ├── runas # REQUIRED FOR DUCKY SETUP
-    ├── keyboard_interface # REQUIRED FOR DUCKY SETUP
     ├── setup_keyboard_device.sh
     ├── remove_keyboard_device.sh
     └── whoami.sh
@@ -247,10 +241,10 @@ The keyboard scripts rely on Linux USB Gadget subsystem. Before running keyboard
 
 ```bash
 # Setup USB HID keyboard gadget
-~/utilities/runas ~/utilities/setup_keyboard_device.sh
+sudo ~/utilities/setup_keyboard_device.sh
 
 # After use, remove the gadget
-~/utilities/runas ~/utilities/remove_keyboard_device.sh
+sudo ~/utilities/remove_keyboard_device.sh
 ```
 
 The `setup_keyboard_device.sh` script:
@@ -272,7 +266,7 @@ The `setup_keyboard_device.sh` script:
 
 ### Keyboard scripts fail to run
 
-- Verify `~/utilities/keyboard_interface` and `~/utilities/runas` exist
+- Verify `/usr/bin/keyboard_interface` exists
 - Check that kernel has required USB Gadget options enabled
 - Ensure USB cable is connected to target device
 

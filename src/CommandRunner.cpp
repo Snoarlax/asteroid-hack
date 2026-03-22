@@ -159,8 +159,7 @@ void CommandRunner::runKeyboardScript(const QString &scriptName)
     }
 
     QString scriptPath = QDir::homePath() + "/keyboard_scripts/" + scriptName;
-    QString deviceInterfacePath = QDir::homePath() + "/utilities/keyboard_interface";
-    QString runasRootPath = QDir::homePath() + "/utilities/runas";
+    QString deviceInterfacePath = "/usr/bin/keyboard_interface";
 
     // Clean up old process
     if (m_process) {
@@ -175,7 +174,7 @@ void CommandRunner::runKeyboardScript(const QString &scriptName)
     setOutput("Running " + scriptName + "...");
 
     // Run the keyboard script
-    m_process->start(runasRootPath, QStringList() << deviceInterfacePath << scriptPath);
+    m_process->start("sudo", QStringList() << deviceInterfacePath << scriptPath);
 
     if (!m_process->waitForStarted(1000)) {
         setOutput("Error: Failed to start script");

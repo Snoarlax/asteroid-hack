@@ -1,2 +1,2 @@
 #!/bin/bash
-/home/ceres/utilities/runas /home/ceres/utilities/whoami.sh
+sudo /home/ceres/utilities/whoami.sh

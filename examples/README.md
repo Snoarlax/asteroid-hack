@@ -44,26 +44,16 @@ Keyboard scripts for USB HID keyboard emulation. Scripts have **no file extensio
 
 ### utilities/
 
-Helper scripts requiring root privileges (run via `runas`):
-
-- `runas` - Execute scripts/commands as root
+Helper scripts requiring root privileges (run via `sudo`):
 - `setup_keyboard_device.sh` - USB gadget setup (root)
 - `remove_keyboard_device.sh` - USB gadget teardown (root)
 - `whoami.sh` - Test script (root)
 
 ## Requirements
 
-The `runas` utility and `keyboard_interface` binary must be compiled for ARM architecture and placed in the `utilities/` directory.
-
-#TODO: INSTRUCTIONS for runas setup
-
-- compile runas using bitbake and the provided runas bitbake script (should be automatically compiled as a dependency for asteroid-hackwatch, but can be manually compiled using bitbake asteroid-runas)
-- make sure root owns runas and the setuid bit is set on it
-- place it in the ~/utilities folder
-
-#TODO: INSTRUCTIONS for keyboard_interface setup
+The `keyboard_interface` binary must be compiled for ARM architecture and placed in the `/usr/bin/` directory. `sudo` should be installed as a dependency of asteroid-hackwatch.
 
 - compile keyboard_interface using the bitbake script (should be automatically compiled as a dependency for asteroid-hackwatch, but can be manually compiled using bitbake asteroid-keyboard-interface)
-- place the binary in the utilities folder
+- place the binary in the /usr/bin/ directory
 
 https://github.com/Snoarlax/asteroid-hackwatch
