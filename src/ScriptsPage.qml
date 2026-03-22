@@ -9,7 +9,7 @@ Item {
 
     PageHeader {
         id: title
-        text: qsTrId("Keyboard")
+        text: qsTrId("Scripts")
     }
 
     Column {
